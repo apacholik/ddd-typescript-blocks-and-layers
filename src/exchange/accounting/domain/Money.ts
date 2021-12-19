@@ -12,7 +12,7 @@ export class Money {
   }
 
   add(money: Money) {
-    if (this.currency.equals(money.currency)) {
+    if (!this.currency.equals(money.currency)) {
       throw new Error("You cannot add different currencies");
     }
 
