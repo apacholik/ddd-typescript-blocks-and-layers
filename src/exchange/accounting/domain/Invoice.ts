@@ -9,7 +9,6 @@ export class Invoice {
   private invoiceNo: InvoiceNo;
   private seller: Seller;
   private buyer: Buyer;
-  private summ: Money;
   private lines: Line[];
   private positionsValue: Money = new Money(0);
 
@@ -17,6 +16,7 @@ export class Invoice {
     this.seller = seller;
     this.buyer = buyer;
     this.invoiceNo = invoiceNo;
+    this.lines = [];
   }
 
   addLine(newLine: Line, positionLimitPolicy: PositionLimitPolicy) {
