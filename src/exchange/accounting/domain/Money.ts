@@ -34,4 +34,12 @@ export class Money {
 
     return new Money(newValue, this.currency);
   }
+
+  getValue(): number {
+    return this.value;
+  }
+
+  greaterThan(money: Money): boolean {
+    return this.value > money.value;
+  }
 }

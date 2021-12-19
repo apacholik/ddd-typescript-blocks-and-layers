@@ -1,4 +1,4 @@
-enum CurrencyType {
+export enum CurrencyType {
   PLN,
   EUR,
 }
