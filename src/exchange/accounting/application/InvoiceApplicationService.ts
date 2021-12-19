@@ -11,12 +11,12 @@ export class InvoiceApplicationService {
     this.repository = invoiceRepository;
   }
 
-  createInvoice(): string {
+  createInvoice(invoiceNo: string | undefined = undefined): string {
     const positions: PositionAttributes[] = [];
 
     positions.push(new InvoicePosition(100, 'PLN'));
 
-    const invoice = this.factory.createInvoice(positions, '12M2021');
+    const invoice = this.factory.createInvoice(positions, invoiceNo || '12M2021');
 
     this.repository.save(invoice);
 

@@ -3,5 +3,6 @@ import { InvoiceNo } from "./InvoiceNo";
 
 export interface InvoiceRepository {
   save: (invoice: Invoice) => void;
-  get: (number: InvoiceNo) => Invoice;
+  //NOTE: Response should be Invoice.
+  get: (number: InvoiceNo) => boolean;
 }

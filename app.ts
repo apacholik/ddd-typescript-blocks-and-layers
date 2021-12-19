@@ -1,48 +1,21 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
+import { createInvoiceController } from './src/exchange/accounting/ui/InvoiceController';
+import { InvoiceApplicationService } from './src/exchange/accounting/application/InvoiceApplicationService';
+import { DBInvoiceRepository } from './src/exchange/accounting/infrastructure/DBInvoiceRepository';
+
+
 
 const app = express();
 const port = 3000;
 
-interface LocationWithTimezone {
-  location: string;
-  timezoneName: string;
-  timezoneAbbr: string;
-  utcOffset: number;
-};
+const invoiceApplicationService = new InvoiceApplicationService(new DBInvoiceRepository());
+app.use('/invoice', createInvoiceController(invoiceApplicationService));
 
-const getLocationsWithTimezones = (request: Request, response: Response, next: NextFunction) => {
-  let locations: LocationWithTimezone[] = [
-    {
-      location: 'Germany',
-      timezoneName: 'Central European Time',
-      timezoneAbbr: 'CET',
-      utcOffset: 1
-    },
-    {
-      location: 'China',
-      timezoneName: 'China Standard Time',
-      timezoneAbbr: 'CST',
-      utcOffset: 8
-    },
-    {
-      location: 'Argentina',
-      timezoneName: 'Argentina Time',
-      timezoneAbbr: 'ART',
-      utcOffset: -3
-    },
-    {
-      location: 'Japan',
-      timezoneName: 'Japan Standard Time',
-      timezoneAbbr: 'JST',
-      utcOffset: 9
-    }
-  ];
-
-  response.status(200).json(locations);
-};
-
-app.get('/timezones', getLocationsWithTimezones);
+app.use(function errorHandler (err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send(err.message);
+})
 
 app.listen(port, () => {
-  console.log(`Timezones by location application is running on port ${port}.`);
+  console.log(`Application is running on port ${port}.`);
 });
