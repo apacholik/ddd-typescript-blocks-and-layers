@@ -4,6 +4,6 @@ export class PLNPositionLimitPolicy  implements PositionLimitPolicy{
   private positionLimit = 10;
 
   lessOrEqualsLimit(positionsCount: number) {
-    return positionsCount > this.positionLimit;
+    return positionsCount <= this.positionLimit;
   }
 }
